@@ -35,6 +35,7 @@ namespace DDDInPractice.Logic
             TwentyDollarCount = twentyDollarCount;
         }
 
+        // test
         public int OneCentCount { get; }
         public int TenCentCount { get; }
         public int QuarterCount { get; }
