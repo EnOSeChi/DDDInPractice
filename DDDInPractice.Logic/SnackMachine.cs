@@ -9,7 +9,7 @@ namespace DDDInPractice.Logic
         // how much machine have
         public Money MoneyInside { get; private set; }
         // how much is inserted by user
-        public Money MoneyInTransaction { get; set; }
+        public Money MoneyInTransaction { get; private set; }
 
         public void InsertMoney(Money money)
         {
