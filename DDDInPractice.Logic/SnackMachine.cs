@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DDDInPractice.Logic
 {
-    public sealed class SnackMachine
+    public sealed class SnackMachine : Entity
     {
         // how much machine have
         public Money MoneyInside { get; private set; }
