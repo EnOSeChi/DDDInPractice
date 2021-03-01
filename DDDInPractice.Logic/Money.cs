@@ -90,5 +90,13 @@ namespace DDDInPractice.Logic
                 money1.FiveDollarCount - money2.FiveDollarCount,
                 money1.TwentyDollarCount - money2.TwentyDollarCount);
         }
+
+        public override string ToString()
+        {
+            if (Amount < 1)
+                return $"{(Amount * 100).ToString("0")} cents";
+
+            return $"{Amount.ToString("0.00")} dollars";
+        }
     }
 }

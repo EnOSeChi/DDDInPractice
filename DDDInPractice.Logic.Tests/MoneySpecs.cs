@@ -113,5 +113,29 @@ namespace DDDInPractice.Logic.Tests
             result.FiveDollarCount.Should().Be(5);
             result.TwentyDollarCount.Should().Be(4);
         }
+
+        [Theory]
+        [InlineData(1, 0, 0, 0, 0, 0, "1 cents")]
+        [InlineData(0, 0, 0, 1, 0, 0, "1.00 dollars")]
+        [InlineData(0, 0, 2, 1, 0, 0, "1.50 dollars")]
+        public void To_string_should_return_amount_of_money(
+            int oneCent,
+            int tenCent,
+            int quarter,
+            int oneDollar,
+            int fiveDollar,
+            int twentyDollar,
+            string expected)
+        {
+            Money money = new Money(
+                oneCent,
+                tenCent,
+                quarter,
+                oneDollar,
+                fiveDollar,
+                twentyDollar);
+
+            money.ToString().Should().Be(expected);
+        }
     }
 }
