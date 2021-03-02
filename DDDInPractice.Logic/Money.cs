@@ -14,13 +14,15 @@ namespace DDDInPractice.Logic
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
         public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
+        private Money() { }
+
         public Money(
             int oneCentCount,
             int tenCentCount,
             int quarterCount,
             int oneDollarCount,
             int fiveDollarCount,
-            int twentyDollarCount)
+            int twentyDollarCount) : this()
         {
             if (oneCentCount < 0)
                 throw new InvalidOperationException();
@@ -43,12 +45,13 @@ namespace DDDInPractice.Logic
             TwentyDollarCount = twentyDollarCount;
         }
 
-        public int OneCentCount { get; }
-        public int TenCentCount { get; }
-        public int QuarterCount { get; }
-        public int OneDollarCount { get; }
-        public int FiveDollarCount { get; }
-        public int TwentyDollarCount { get; }
+        // private set for ef core
+        public int OneCentCount { get; private set; }
+        public int TenCentCount { get; private set; }
+        public int QuarterCount { get; private set; }
+        public int OneDollarCount { get; private set; }
+        public int FiveDollarCount { get; private set; }
+        public int TwentyDollarCount { get; private set; }
 
         public decimal Amount => OneCentCount * 0.01m +
                     TenCentCount * 0.10m +
