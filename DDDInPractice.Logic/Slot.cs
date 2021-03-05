@@ -6,7 +6,9 @@ namespace DDDInPractice.Logic
 {
     public class Slot : Entity
     {
-        public Slot(SnackMachine snackMachine, int position)
+        private Slot() { }
+
+        public Slot(SnackMachine snackMachine, int position) : this()
         {
             SnackPile = new SnackPile(null, 0, 0m);
             SnackMachine = snackMachine;

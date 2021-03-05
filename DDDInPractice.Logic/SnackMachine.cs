@@ -10,8 +10,8 @@ namespace DDDInPractice.Logic
         // how much machine have
         public Money MoneyInside { get; private set; } = Money.None;
         // how much is inserted by user
-        public Money MoneyInTransaction { get; private set; } = Money.None;
-        private IList<Slot> Slots { get; private set; }
+        public decimal MoneyInTransaction { get; private set; } = 0;
+        public IList<Slot> Slots { get; private set; }
 
         public SnackMachine()
         {
@@ -37,20 +37,32 @@ namespace DDDInPractice.Logic
             if (!coinsAndNotes.Contains(money))
                 throw new InvalidOperationException();
 
-            MoneyInTransaction += money;
+            MoneyInTransaction += money.Amount;
+            MoneyInside += money;
         }
 
         public void ReturnMoney()
         {
-            MoneyInTransaction = Money.None;
+            Money moneyToReturn = MoneyInside.Allocate(MoneyInTransaction);
+            MoneyInside -= moneyToReturn;
+            MoneyInTransaction = 0;
         }
 
         public void BuySnack(int position)
         {
             Slot slot = GetSlot(position);
+
+            if (slot.SnackPile.Price > MoneyInTransaction)
+                throw new InvalidOperationException();
+
             slot.SnackPile = slot.SnackPile.SubtractOne();
-            MoneyInside += MoneyInTransaction;
-            MoneyInTransaction = Money.None;
+
+            Money change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
+            if (change.Amount < MoneyInTransaction - slot.SnackPile.Price)
+                throw new InvalidOperationException();
+
+            MoneyInside -= change;
+            MoneyInTransaction = 0;
         }
 
         public void LoadSnack(int position, SnackPile snackPile)
@@ -59,14 +71,19 @@ namespace DDDInPractice.Logic
             slot.SnackPile = snackPile;
         }
 
-        private Slot GetSlot(int position)
-        {
-            return Slots.Single(x => x.Position == position);
-        }
-
         public SnackPile GetSnackPile(int position)
         {
             return GetSlot(position).SnackPile;
+        }
+
+        public void LoadMoney(Money oneDollar)
+        {
+            MoneyInside += oneDollar;
+        }
+
+        private Slot GetSlot(int position)
+        {
+            return Slots.Single(x => x.Position == position);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace DDDInPractice.Application
         private readonly string _connectionString;
 
         public DbSet<SnackMachine> SnackMachines { get; set; }
+        public DbSet<Snack> Snacks { get; set; }
+        public DbSet<Slot> Slots { get; set; }
 
         public DDDInPracticeDbContext(string connectionString)
         {
@@ -26,6 +28,11 @@ namespace DDDInPractice.Application
             {
                 e.OwnsOne(x => x.MoneyInside);
                 e.Ignore(x => x.MoneyInTransaction);
+            });
+
+            modelBuilder.Entity<Slot>(e =>
+            {
+                e.OwnsOne(x => x.SnackPile);
             });
 
             base.OnModelCreating(modelBuilder);

@@ -17,8 +17,9 @@ namespace DDDInPractice.Logic.Tests
             {
                 ctx.Database.EnsureCreated();
                 var snackMachine = new SnackMachine();
+                snackMachine.LoadSnack(1, new SnackPile(new Snack("Chips"), 10, 0.01m));
                 snackMachine.InsertMoney(Money.OneCent);
-                snackMachine.BuySnack();
+                snackMachine.BuySnack(1);
 
                 ctx.SnackMachines.Add(snackMachine);
                 ctx.SaveChanges();
@@ -42,8 +43,9 @@ namespace DDDInPractice.Logic.Tests
         public void Test2()
         {
             var snackMachine = new SnackMachine();
+            snackMachine.LoadSnack(1, new SnackPile(new Snack("Chips"), 10, 0.01m));
             snackMachine.InsertMoney(Money.OneCent);
-            snackMachine.BuySnack();
+            snackMachine.BuySnack(1);
 
             using (var ctx = ContextFactory.DefaultContext())
             {

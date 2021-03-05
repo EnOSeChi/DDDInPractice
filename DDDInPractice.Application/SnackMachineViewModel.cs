@@ -33,7 +33,7 @@ namespace DDDInPractice.Application
 
         public void BuySnack()
         {
-            _snackMachine.BuySnack();
+            _snackMachine.BuySnack(1);
             using (var context = ContextFactory.DefaultContext())
             using (var transaction = context.Database.BeginTransaction())
             {

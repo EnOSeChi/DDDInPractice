@@ -6,7 +6,9 @@ namespace DDDInPractice.Logic
 {
     public sealed class SnackPile : ValueObject
     {
-        public SnackPile(Snack snack, int quantity, decimal price)
+        private SnackPile() { }
+
+        public SnackPile(Snack snack, int quantity, decimal price) : this()
         {
             if (quantity < 0)
                 throw new InvalidOperationException();
@@ -20,9 +22,9 @@ namespace DDDInPractice.Logic
             Price = price;
         }
 
-        public Snack Snack { get; }
-        public int Quantity { get; }
-        public decimal Price { get; }
+        public Snack Snack { get; private set; }
+        public int Quantity { get; private set; }
+        public decimal Price { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
