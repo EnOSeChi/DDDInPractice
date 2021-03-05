@@ -15,10 +15,10 @@ namespace DDDInPractice.Logic
             Position = position;
         }
 
-        public Snack Snack { get; private set; }
-        public int Quantity { get; private set; }
-        public decimal Price { get; private set; }
-        public SnackMachine SnackMachine { get; private set; }
-        public int Position { get; private set; }
+        public Snack Snack { get;  set; }
+        public int Quantity { get;  set; }
+        public decimal Price { get;  set; }
+        public SnackMachine SnackMachine { get;  set; }
+        public int Position { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -45,15 +46,14 @@ namespace DDDInPractice.Logic.Tests
         public void BuySnack_trades_inserted_money_for_a_snack()
         {
             var snackMachine = new SnackMachine();
-            snackMachine.LoadSnack();
-            snackMachine.InsertMoney(Money.OneDollar);
+            snackMachine.LoadSnack(1, new Snack("Some snack"), 10, 1m);
             snackMachine.InsertMoney(Money.OneDollar);
 
-            snackMachine.BuySnack();
+            snackMachine.BuySnack(1);
 
             snackMachine.MoneyInTransaction.Should().Be(Money.None);
             snackMachine.MoneyInside.Amount.Should().Be(2m);
-            validate the number
+            snackMachine.Slots.Single(x => x.Position == 1).Quantity.Should().Be(9);
         }
     }
 }

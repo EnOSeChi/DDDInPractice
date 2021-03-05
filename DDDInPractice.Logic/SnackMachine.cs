@@ -13,6 +13,16 @@ namespace DDDInPractice.Logic
         public Money MoneyInTransaction { get; private set; } = Money.None;
         public IList<Slot> Slots { get; private set; }
 
+        public SnackMachine()
+        {
+            Slots = new List<Slot>
+            {
+                new Slot(null, 0, 0m,this, 0),
+                new Slot(null, 0, 0m,this, 1),
+                new Slot(null, 0, 0m,this, 2),
+            };
+        }
+
         public void InsertMoney(Money money)
         {
             Money[] coinsAndNotes = 
@@ -35,15 +45,20 @@ namespace DDDInPractice.Logic
             MoneyInTransaction = Money.None;
         }
 
-        public void BuySnack()
+        public void BuySnack(int position)
         {
+            Slot slot = Slots.Single(x => x.Position == position);
+            slot.Quantity--;
             MoneyInside += MoneyInTransaction;
             MoneyInTransaction = Money.None;
         }
 
         public void LoadSnack(int position, Snack snack, int quantity, decimal price)
         {
-            throw new NotImplementedException();
+            Slot slot = Slots.Single(x => x.Position == position);
+            slot.Snack = snack;
+            slot.Quantity = quantity;
+            slot.Price = price;
         }
     }
 }
