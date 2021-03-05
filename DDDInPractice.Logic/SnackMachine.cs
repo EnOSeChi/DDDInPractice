@@ -11,6 +11,7 @@ namespace DDDInPractice.Logic
         public Money MoneyInside { get; private set; } = Money.None;
         // how much is inserted by user
         public Money MoneyInTransaction { get; private set; } = Money.None;
+        public IList<Slot> Slots { get; private set; }
 
         public void InsertMoney(Money money)
         {
@@ -38,6 +39,11 @@ namespace DDDInPractice.Logic
         {
             MoneyInside += MoneyInTransaction;
             MoneyInTransaction = Money.None;
+        }
+
+        public void LoadSnack(int position, Snack snack, int quantity, decimal price)
+        {
+            throw new NotImplementedException();
         }
     }
 }

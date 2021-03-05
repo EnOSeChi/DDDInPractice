@@ -42,9 +42,10 @@ namespace DDDInPractice.Logic.Tests
         }
 
         [Fact]
-        public void Money_in_transaction_goes_to_money_inside_after_purchase()
+        public void BuySnack_trades_inserted_money_for_a_snack()
         {
             var snackMachine = new SnackMachine();
+            snackMachine.LoadSnack();
             snackMachine.InsertMoney(Money.OneDollar);
             snackMachine.InsertMoney(Money.OneDollar);
 
@@ -52,6 +53,7 @@ namespace DDDInPractice.Logic.Tests
 
             snackMachine.MoneyInTransaction.Should().Be(Money.None);
             snackMachine.MoneyInside.Amount.Should().Be(2m);
+            validate the number
         }
     }
 }

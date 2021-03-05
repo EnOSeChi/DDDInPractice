@@ -14,15 +14,13 @@ namespace DDDInPractice.Logic
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
         public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
-        private Money() { }
-
         public Money(
             int oneCentCount,
             int tenCentCount,
             int quarterCount,
             int oneDollarCount,
             int fiveDollarCount,
-            int twentyDollarCount) : this()
+            int twentyDollarCount)
         {
             if (oneCentCount < 0)
                 throw new InvalidOperationException();
