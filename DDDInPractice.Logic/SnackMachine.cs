@@ -47,7 +47,7 @@ namespace DDDInPractice.Logic
 
         public void BuySnack(int position)
         {
-            Slot slot = Slots.Single(x => x.Position == position);
+            Slot slot = GetSlot(position);
             slot.SnackPile = slot.SnackPile.SubtractOne();
             MoneyInside += MoneyInTransaction;
             MoneyInTransaction = Money.None;
@@ -55,13 +55,18 @@ namespace DDDInPractice.Logic
 
         public void LoadSnack(int position, SnackPile snackPile)
         {
-            Slot slot = Slots.Single(x => x.Position == position);
+            Slot slot = GetSlot(position);
             slot.SnackPile = snackPile;
+        }
+
+        private Slot GetSlot(int position)
+        {
+            return Slots.Single(x => x.Position == position);
         }
 
         public SnackPile GetSnackPile(int position)
         {
-            return Slots.Single(x => x.Position == position).SnackPile;
+            return GetSlot(position).SnackPile;
         }
     }
 }
