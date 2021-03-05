@@ -6,19 +6,15 @@ namespace DDDInPractice.Logic
 {
     public class Slot : Entity
     {
-        public Slot(Snack snack, int quantity, decimal price, SnackMachine snackMachine, int position)
+        public Slot(SnackMachine snackMachine, int position)
         {
-            Snack = snack;
-            Quantity = quantity;
-            Price = price;
+            SnackPile = new SnackPile(null, 0, 0m);
             SnackMachine = snackMachine;
             Position = position;
         }
 
-        public Snack Snack { get;  set; }
-        public int Quantity { get;  set; }
-        public decimal Price { get;  set; }
-        public SnackMachine SnackMachine { get;  set; }
-        public int Position { get; set; }
+        public SnackPile SnackPile { get; set; }
+        public SnackMachine SnackMachine { get;  private set; }
+        public int Position { get; private set; }
     }
 }

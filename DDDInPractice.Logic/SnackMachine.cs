@@ -5,21 +5,21 @@ using System.Text;
 
 namespace DDDInPractice.Logic
 {
-    public sealed class SnackMachine : Entity
+    public sealed class SnackMachine : AggregateRoot
     {
         // how much machine have
         public Money MoneyInside { get; private set; } = Money.None;
         // how much is inserted by user
         public Money MoneyInTransaction { get; private set; } = Money.None;
-        public IList<Slot> Slots { get; private set; }
+        private IList<Slot> Slots { get; private set; }
 
         public SnackMachine()
         {
             Slots = new List<Slot>
             {
-                new Slot(null, 0, 0m,this, 0),
-                new Slot(null, 0, 0m,this, 1),
-                new Slot(null, 0, 0m,this, 2),
+                new Slot(this, 0),
+                new Slot(this, 1),
+                new Slot(this, 2),
             };
         }
 
@@ -48,17 +48,20 @@ namespace DDDInPractice.Logic
         public void BuySnack(int position)
         {
             Slot slot = Slots.Single(x => x.Position == position);
-            slot.Quantity--;
+            slot.SnackPile = slot.SnackPile.SubtractOne();
             MoneyInside += MoneyInTransaction;
             MoneyInTransaction = Money.None;
         }
 
-        public void LoadSnack(int position, Snack snack, int quantity, decimal price)
+        public void LoadSnack(int position, SnackPile snackPile)
         {
             Slot slot = Slots.Single(x => x.Position == position);
-            slot.Snack = snack;
-            slot.Quantity = quantity;
-            slot.Price = price;
+            slot.SnackPile = snackPile;
+        }
+
+        public SnackPile GetSnackPile(int position)
+        {
+            return Slots.Single(x => x.Position == position).SnackPile;
         }
     }
 }
