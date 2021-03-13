@@ -11,6 +11,28 @@ namespace DDDInPractice.Logic.Tests
     public class TemporaryTests
     {
         [Fact]
+        public void Test3()
+        {
+            SnackMachine snackMachine;
+            using (var ctx = ContextFactory.DefaultContext())
+            {
+
+                ctx.Database.EnsureDeleted();
+                ctx.Database.EnsureCreated();
+                snackMachine = new SnackMachine();
+                snackMachine.LoadSnack(1, new SnackPile(new Snack("Chips"), 10, 0.01m));
+                snackMachine.InsertMoney(Money.OneCent);
+                snackMachine.BuySnack(1);
+
+                ctx.SnackMachines.Add(snackMachine);
+                ctx.SaveChanges();
+            }
+
+            var repository = new SnackMachineRepository();
+            var snackMachine2 = repository.GetById(snackMachine.Id);
+        }
+
+        [Fact]
         public void Test()
         {
             using (var ctx = ContextFactory.DefaultContext())
