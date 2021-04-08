@@ -1,4 +1,5 @@
 ﻿using DDDInPractice.Logic;
+using DDDInPractice.Logic.Atms;
 using Microsoft.EntityFrameworkCore;
 
 namespace DDDInPractice.Application
@@ -7,6 +8,7 @@ namespace DDDInPractice.Application
     {
         private readonly string _connectionString;
 
+        public DbSet<Atm> Atms { get; set; }
         public DbSet<SnackMachine> SnackMachines { get; set; }
         public DbSet<Snack> Snacks { get; set; }
         public DbSet<Slot> Slots { get; set; }
@@ -24,6 +26,11 @@ namespace DDDInPractice.Application
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Atm>(e =>
+            {
+                e.OwnsOne(x => x.MoneyInside);
+            });
+
             modelBuilder.Entity<SnackMachine>(e =>
             {
                 e.OwnsOne(x => x.MoneyInside);
