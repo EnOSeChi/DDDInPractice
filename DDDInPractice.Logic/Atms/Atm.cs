@@ -13,5 +13,10 @@ namespace DDDInPractice.Logic.Atms
         {
 
         }
+
+        public virtual void LoadMoney(Money money)
+        {
+            MoneyInside += money;
+        }
     }
 }
