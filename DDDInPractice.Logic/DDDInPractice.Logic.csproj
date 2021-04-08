@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Atms\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 
