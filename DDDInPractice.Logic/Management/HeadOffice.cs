@@ -8,5 +8,10 @@ namespace DDDInPractice.Logic.Management
     {
         public virtual decimal Balance { get; set; }
         public virtual Money Cash { get; set; }
+
+        public virtual void ChangeBalance(decimal delta)
+        {
+            Balance += delta;
+        }
     }
 }
