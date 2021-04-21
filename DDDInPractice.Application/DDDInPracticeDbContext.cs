@@ -1,5 +1,6 @@
 ﻿using DDDInPractice.Logic;
 using DDDInPractice.Logic.Atms;
+using DDDInPractice.Logic.Management;
 using Microsoft.EntityFrameworkCore;
 
 namespace DDDInPractice.Application
@@ -40,6 +41,11 @@ namespace DDDInPractice.Application
             modelBuilder.Entity<Slot>(e =>
             {
                 e.OwnsOne(x => x.SnackPile);
+            });
+
+            modelBuilder.Entity<HeadOffice>(e =>
+            {
+                e.OwnsOne(x => x.Cash);
             });
 
             base.OnModelCreating(modelBuilder);
